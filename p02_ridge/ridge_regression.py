@@ -5,15 +5,17 @@ from sklearn.linear_model import Ridge
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
 
-test_rmse = []
-train_rmse = []
 dataset = pd.read_csv('hitters.csv')
 
+coefs = []
+errors = []
+w = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 X = dataset.iloc[:, 0:-2].values
 y = dataset.iloc[:, -2].values
 
+lambdas = np.logspace(-2, 10, 200)
 
-for lambd in range(-2,10):
+for lambd in lambdas:
     clf = Ridge(alpha=lambd)
     clf.fit(X, y)
     coefs.append(clf.coef_)
@@ -22,22 +24,12 @@ for lambd in range(-2,10):
 
 plt.figure(figsize=(20, 6))
 
-plt.subplot(121)
 ax = plt.gca()
-ax.plot(alphas, coefs)
+ax.plot(lambdas, coefs)
 ax.set_xscale('log')
 plt.xlabel('alpha')
 plt.ylabel('weights')
 plt.title('Ridge coefficients as a function of the regularization')
-plt.axis('tight')
-
-plt.subplot(122)
-ax = plt.gca()
-ax.plot(alphas, errors)
-ax.set_xscale('log')
-plt.xlabel('alpha')
-plt.ylabel('error')
-plt.title('Coefficient error as a function of the regularization')
 plt.axis('tight')
 
 plt.show()
