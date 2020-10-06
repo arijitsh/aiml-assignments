@@ -1,14 +1,16 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from sklearn.linear_model import Ridge, RidgeCV, LassoCV
+from sklearn.linear_model import Ridge, RidgeCV, Lasso, LassoCV
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error
+import warnings
+
+warnings.filterwarnings('ignore')
 
 dataset = pd.read_csv('hitters.csv')
 
 coefs = []
-coefs0 = []
 errors = []
 w = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 X = dataset.iloc[:, 0:-2].values
@@ -51,6 +53,20 @@ y_test_predicted = clf.predict(X_test)
 rmse = np.sqrt(mean_squared_error(y_test,y_test_predicted))
 print('Best Lambda in Ridge | Test Error %.3f'%(rmse))
 
+lambdas = [0,4,1e10]
+rmse = []
+
+
+for lambd in lambdas:
+    clf = Lasso(alpha=lambd)
+    clf.fit(X, y)
+    clf.fit(X_train, y_train)
+    y_test_predicted = clf.predict(X_test)
+    rmse.append(np.sqrt(mean_squared_error(y_test,y_test_predicted)))
+    print('Lambda : %d | Test Error %.3f'%(lambd,rmse[-1]))
+
+
+lambdas = np.logspace(-6, 10, 200)
 clf = LassoCV(alphas=lambdas).fit(X_train, y_train)
 y_test_predicted = clf.predict(X_test)
 rmse = np.sqrt(mean_squared_error(y_test,y_test_predicted))
