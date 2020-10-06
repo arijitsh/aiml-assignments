@@ -23,3 +23,16 @@ Data : `winequality-red.csv` [[Source](https://archive.ics.uci.edu/ml/datasets/W
 Source Code : `polynomial_regression.py `
 
 Results : `polynomial.ipynb `
+
+## Assignment - 2 : Ridge and Lasso Regression
+
+To go to the folder, issue :
+```
+cd p02_ridge
+````
+
+Data : `hitters.csv` [Source : ISLR]
+
+Source Code : `ridge_regression.py `
+
+Results : `ridge-regression.ipynb`
