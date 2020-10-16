@@ -12,7 +12,7 @@ dataset = pd.read_csv('college.csv')
 X = dataset.iloc[:, 1:-1].values
 y = dataset.iloc[:, -1].values
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.5,random_state=100)
 
 reg = LinearRegression()
 reg.fit(X_train, y_train)
@@ -40,13 +40,16 @@ for lambd in lambdas:
 
     print("\n\nRMSE = % .2f"%np.sqrt(mean_squared_error(y_test,y_test_predicted)))
 
-lambda_range = np.logspace(-6, 10, 200)
+lambda_range = np.logspace(-6, 10, 20000)
 
 reg = RidgeCV(alphas=lambda_range).fit(X_train, y_train)
+
+print("\n\nCoefficients by Ridge with Best lambda (= %.2f)\n\n"%reg.alpha_)
+
+reg = Ridge(alpha=reg.alpha_)
 reg.fit(X_train, y_train)
 y_test_predicted = reg.predict(X_test)
 
-print("\n\nCoefficients by Ridge with Best lambda\n\n")
 
 for i in range(17):
     print("%s : %.2f"%(list(dataset)[i+1] ,reg.coef_[i]))
@@ -65,13 +68,14 @@ for lambd in lambdas:
 
     print("\n\nRMSE = % .2f"%np.sqrt(mean_squared_error(y_test,y_test_predicted)))
 
-lambda_range = np.logspace(-6, 10, 200)
+reg = LassoCV(alphas=lambda_range, cv=10, max_iter=100000).fit(X_train, y_train)
 
-reg = LassoCV(alphas=lambda_range).fit(X_train, y_train)
+print("\n\nCoefficients by Lasso with Best lambda (= %.2f)\n\n"%reg.alpha_)
+
+reg = Lasso(alpha=reg.alpha_)
+
 reg.fit(X_train, y_train)
 y_test_predicted = reg.predict(X_test)
-
-print("\n\nCoefficients by Lasso with Best lambda\n\n")
 
 for i in range(17):
     print("%s : %.2f"%(list(dataset)[i+1] ,reg.coef_[i]))
