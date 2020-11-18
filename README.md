@@ -11,18 +11,18 @@ git clone https://github.com/arijitsh/aiml-assignments.git
 cd aiml-assignments
 ```
 
-## Assignment - 1 : Polynomial Regression
+## Assignment - 3 : Logistic Regression
 
 To go to the folder, issue :
 ```
-cd p01_regression
+cd p03_weekly
 ````
 
-Data : `winequality-red.csv` [[Source](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)]
+Data : `weekly.csv` [Source : ISLR]
 
-Source Code : `polynomial_regression.py `
+Source Code : `regressions.py `
 
-Results : `polynomial.ipynb `
+Results : `Regressions.ipynb`
 
 ## Assignment - 2 : Ridge and Lasso Regression
 
@@ -36,3 +36,16 @@ Data : `hitters.csv` [Source : ISLR]
 Source Code : `ridge_regression.py `
 
 Results : `ridge-regression.ipynb`
+
+## Assignment - 1 : Polynomial Regression
+
+To go to the folder, issue :
+```
+cd p01_regression
+````
+
+Data : `winequality-red.csv` [[Source](https://archive.ics.uci.edu/ml/datasets/Wine+Quality)]
+
+Source Code : `polynomial_regression.py `
+
+Results : `polynomial.ipynb `

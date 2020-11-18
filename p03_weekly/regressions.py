@@ -1,19 +1,25 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import classification_report, confusion_matrix
 
 dataset = pd.read_csv('weekly.csv')
 
-X = dataset.iloc[:, 1:-2].values
-y = dataset.iloc[:, -1].values
-
 # 1
 
+sns.pairplot(dataset,hue='Direction')
 
+ax=plt.axes()
+ax.scatter(x=dataset.index,y=dataset['Volume'])
+plt.show()
 
 # 2
+
+X = dataset.iloc[:, 1:-2].values
+y = dataset.iloc[:, -1].values
 
 model = LogisticRegression(random_state=42)
 
